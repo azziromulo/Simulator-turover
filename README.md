@@ -1,117 +1,117 @@
 
-# Simulator-turover
-People Analytics project that uses statistics and machine learning to understand **why employees leave**, **who is likely to leave**, and the **cost of each departure**. It consists of two deliverables: an interactive HTML dashboard and a comprehensive Power BI project, featuring a semantic model in TMDL and 146 DAX measures.
-# Raio-X do Turnover · People Analytics
+# Turnover X-Ray · People Analytics
 
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)
 ![Power BI](https://img.shields.io/badge/Power%20BI-PBIP%20%7C%20TMDL%20%7C%20DAX-F2C811?logo=powerbi&logoColor=black)
 ![HTML](https://img.shields.io/badge/Dashboard-HTML%20%2B%20ECharts-E34F26?logo=html5&logoColor=white)
-![Status](https://img.shields.io/badge/status-conclu%C3%ADdo-0CA30C)
+![Status](https://img.shields.io/badge/status-complete-0CA30C)
 
-Projeto de **People Analytics** que usa estatística e machine learning para entender **por que os colaboradores saem**, **quem tende a sair** e **quanto custa repor** cada saída. São dois entregáveis: um dashboard HTML interativo e um projeto Power BI completo, com modelo semântico em TMDL e 146 medidas DAX.
+A **People Analytics** project that uses statistics and machine learning to understand **why employees leave**, **who is likely to leave** and **what it costs to replace them**. It has two deliverables: an interactive HTML dashboard and a full Power BI project with a TMDL semantic model and 146 DAX measures.
 
-> **Sobre os dados:** a análise usa a base **IBM HR Analytics Employee Attrition & Performance**, um conjunto **fictício e público** criado por cientistas de dados da IBM para estudos de dados. São 1.470 colaboradores e 35 variáveis, sem nenhuma pessoa real. Os números demonstram a metodologia e não descrevem nenhuma empresa.
+> **About the data:** the analysis uses the **IBM HR Analytics Employee Attrition & Performance** dataset, a **fictional, public** dataset created by IBM data scientists for data-science study. It has 1,470 employees and 35 variables and no real people. The figures illustrate the method; they don't describe any real company.
 
-![Visão geral](docs/01_visao_geral.png)
+> The dashboards are in Brazilian Portuguese.
+
+![Overview](docs/01_visao_geral.png)
 
 ---
 
-## Perguntas de negócio
+## Business questions
 
-| # | Pergunta | Principal achado |
+| # | Question | Key finding |
 |---|---|---|
-| 1 | Qual é a taxa geral de turnover? | **16,1%** (237 de 1.470), IC 95% de 14,3% a 18,1% |
-| 2 | Quais áreas e cargos perdem mais gente? | Vendas tem 20,6%. Representante de Vendas chega a **39,8%** (2,5× a média) |
-| 3 | Quem ganha menos sai mais? | Sim. A renda mediana de quem sai é **38% menor**, e o efeito continua mesmo comparando pessoas do mesmo nível de cargo |
-| 4 | Como a satisfação se relaciona com a saída? | O turnover cai a cada degrau de satisfação. Engajamento crítico: **37%**; engajamento muito alto: **8%** |
-| 5 | Quais idades e tempos de casa estão em risco? | 18–24 anos com até 1 ano de casa: **60%** de saída |
-| 6 | Qual é o perfil de alto risco? | Nível de entrada, sem stock options, solteiro(a), pouca experiência e viagens frequentes |
-| + | Quem tende a sair e qual o gap até repor? | **174 saídas esperadas** em 12 meses, ~21 vagas abertas em média, ~$ 3,1 mi de custo |
+| 1 | What is the overall attrition rate? | **16.1%** (237 of 1,470), 95% CI 14.3%–18.1% |
+| 2 | Which departments and roles have the highest turnover? | Sales leads with 20.6%. Sales Representative reaches **39.8%** (2.5× the average) |
+| 3 | Do lower-paid employees leave more often? | Yes. The median income of leavers is **38% lower**, and the effect holds within the same job level |
+| 4 | How does job satisfaction relate to attrition? | Attrition falls at every step up the satisfaction scale: **37%** at critical engagement vs **8%** at very high engagement |
+| 5 | Which age groups and tenure ranges are most at risk? | Employees aged 18–24 with up to 1 year at the company: **60%** attrition |
+| 6 | What is the profile of a high-risk employee? | Entry level, no stock options, single, little work experience, frequent business travel |
+| + | Who is likely to leave, and what does the replacement gap cost? | **174 expected exits** in 12 months, ~21 open positions on average, ~$3.1M cost |
 
 ---
 
-## Simulador de risco de saída
+## Attrition risk simulator
 
-Você ajusta o perfil de um colaborador e o simulador calcula na hora a **probabilidade de saída**, mostra **o que puxa o risco para cima ou para baixo** e estima o **custo de reposição**.
+Set up an employee profile and the simulator instantly returns the **probability of leaving**, shows **which factors push the risk up or down** and estimates the **replacement cost**.
 
-![Simulador](docs/04_simulador.png)
+![Simulator](docs/04_simulador.png)
 
-- Regressão logística multivariada com 23 variáveis. Numéricas padronizadas, odds ratios com IC 95% e VIF < 5.
-- Validado fora da amostra com validação cruzada estratificada 5×3: **AUC 0,80**. Os 20% de maior risco concentram **55%** das saídas reais.
-- Comparado com Random Forest e Gradient Boosting, o modelo interpretável venceu.
-
----
-
-## Destaques do dashboard
-
-![Perfil de risco](docs/02_perfil_de_risco.png)
-
-- **Filtros que recalculam a estatística no navegador:** IC de Wilson, qui-quadrado, V de Cramér, tendência de Cochran-Armitage, Mann-Whitney, Kaplan-Meier com log-rank e AUC.
-- **Funnel plot** para separar os cargos realmente fora da curva da variação natural dos grupos pequenos.
-- **Curvas de sobrevivência (Kaplan-Meier)** por nível, estado civil, stock options, viagens e faixa etária.
-- **Personas de risco**, geradas por árvore de decisão, e **lista de retenção prioritária**.
-- **Gap de reposição:** modelo de remuneração × satisfação × idade × tempo de casa, com dias de vaga aberta, rampa de produtividade, custo de contratação (premissas do SHRM 2025) e cenários de retenção com ROI.
-
-![Gap de reposição](docs/03_gap_de_reposicao.png)
+- Multivariate logistic regression with 23 variables: standardized numeric inputs, odds ratios with 95% CIs, VIF < 5.
+- Out-of-sample validation with stratified 5×3 cross-validation: **AUC 0.80**. The top 20% highest-risk employees account for **55%** of actual exits.
+- Benchmarked against Random Forest and Gradient Boosting. The interpretable model scored highest.
 
 ---
 
-## Métodos estatísticos
+## Dashboard highlights
 
-| Técnica | Para quê |
+![Risk profile](docs/02_perfil_de_risco.png)
+
+- **Filters that recompute the statistics in the browser:** Wilson CIs, chi-square, Cramér's V, Cochran-Armitage trend, Mann-Whitney, Kaplan-Meier with log-rank, and AUC.
+- A **funnel plot** shows which roles are true outliers and which just reflect the natural noise of small groups.
+- **Kaplan-Meier survival curves** by job level, marital status, stock options, business travel and age group.
+- **Risk personas** from a decision tree, plus a **priority retention list**.
+- **Replacement gap:** a pay × satisfaction × age × tenure model with vacancy days, productivity ramp-up and hiring cost (SHRM 2025 benchmarks), plus retention scenarios with ROI.
+
+![Replacement gap](docs/03_gap_de_reposicao.png)
+
+---
+
+## Statistical methods
+
+| Technique | Purpose |
 |---|---|
-| IC 95% de Wilson | Intervalo confiável para taxas, inclusive em grupos pequenos |
-| Qui-quadrado + V de Cramér | Associação de cada variável com a saída e tamanho do efeito |
-| Resíduo ajustado de Haberman | Saber se a categoria difere do restante (\|z\| > 1,96) |
-| Cochran-Armitage | Tendência em escalas ordenadas (satisfação, faixas) |
-| Mann-Whitney, Welch, d de Cohen | Comparar variáveis numéricas entre quem sai e quem fica |
-| Benjamini-Hochberg (FDR) | Correção para 42 testes simultâneos |
-| Information Value / WoE | Poder preditivo de cada variável |
-| Kaplan-Meier + log-rank | Retenção ao longo do tempo de casa |
-| Regressão logística + odds ratios | Efeito de cada fator, controlando os demais |
-| Árvore de decisão | Personas de risco legíveis |
-| Lei de Little | Vagas abertas em média = saídas por dia × tempo de reposição |
+| Wilson 95% CI | Reliable intervals for rates, even in small groups |
+| Chi-square + Cramér's V | Association between each variable and attrition, and effect size |
+| Haberman adjusted residuals | Whether a category differs from the rest (\|z\| > 1.96) |
+| Cochran-Armitage | Trend across ordered scales (satisfaction, bands) |
+| Mann-Whitney, Welch, Cohen's d | Compare numeric variables between leavers and stayers |
+| Benjamini-Hochberg (FDR) | Correction for 42 simultaneous tests |
+| Information Value / WoE | Predictive power of each variable |
+| Kaplan-Meier + log-rank | Retention over tenure |
+| Logistic regression + odds ratios | Effect of each factor, holding the others constant |
+| Decision tree | Readable risk personas |
+| Little's law | Average open positions = exits per day × time to replace |
 
 ---
 
 ## Power BI
 
-- Projeto **PBIP** com modelo semântico em **TMDL** e relatório em **PBIR**: 9 páginas e 101 visuais.
-- **146 medidas DAX** organizadas em pastas. Entre elas: IC de Wilson, qui-quadrado e V de Cramér, Kaplan-Meier, AUC calculada em DAX, setas ▲▼ com cor condicional e o modelo de gap.
-- **Field parameter** para analisar o turnover por 24 dimensões, parâmetros what-if e premissas por nível de cargo.
-- Os JSONs do relatório foram validados contra os schemas oficiais da Microsoft.
+- **PBIP** project with a **TMDL** semantic model and a **PBIR** report: 9 pages, 101 visuals.
+- **146 DAX measures** organized in display folders. They include Wilson CIs, chi-square with Cramér's V, Kaplan-Meier, AUC computed in DAX, ▲▼ arrows with conditional colors, and the replacement-gap model.
+- A **field parameter** lets you analyze attrition across 24 dimensions, alongside what-if parameters and assumptions by job level.
+- The report JSON files were validated against Microsoft's official schemas.
 
-![Layout das páginas](docs/powerbi_layout_paginas.png)
+![Page layout](docs/powerbi_layout_paginas.png)
 
 ---
 
-## Estrutura do repositório
+## Repository structure
 
 ```
 ├── dashboard/
-│   ├── HR_Attrition_Dashboard.html     # dashboard completo (9 abas)
-│   └── Simulador_Risco_Saida.html      # simulador standalone
+│   ├── HR_Attrition_Dashboard.html     # full dashboard (9 tabs)
+│   └── Simulador_Risco_Saida.html      # standalone simulator
 ├── powerbi/
-│   ├── HR_Attrition.pbip               # abrir no Power BI Desktop
-│   ├── HR_Attrition.SemanticModel/     # TMDL: tabelas, medidas, relacionamentos
-│   ├── HR_Attrition.Report/            # PBIR: páginas e visuais
-│   ├── data/                           # CSVs consumidos pelo modelo
-│   └── kit/                            # DAX, Power Query, script TMDL e tema
-├── analise/                            # código Python que gera tudo
-├── dados/                              # base original
-└── docs/                               # documentação completa e imagens
+│   ├── HR_Attrition.pbip               # open in Power BI Desktop
+│   ├── HR_Attrition.SemanticModel/     # TMDL: tables, measures, relationships
+│   ├── HR_Attrition.Report/            # PBIR: pages and visuals
+│   ├── data/                           # CSVs loaded by the model
+│   └── kit/                            # DAX, Power Query, TMDL script and theme
+├── analise/                            # Python code that generates everything
+├── dados/                              # original dataset
+└── docs/                               # full documentation and images
 ```
 
-## Como rodar
+## How to run
 
-**Dashboard e simulador:** baixe e abra os arquivos de `dashboard/` no navegador. É preciso internet para carregar a biblioteca de gráficos e as fontes.
+**Dashboard and simulator:** download the files in `dashboard/` and open them in a browser. An internet connection is needed to load the chart library and fonts.
 
 **Power BI:**
-1. Clone ou extraia o repositório em `C:\HR_Attrition_People_Analytics\`. Se usar outra pasta, ajuste o parâmetro `PastaDados` depois de abrir.
-2. Abra `powerbi/HR_Attrition.pbip` no Power BI Desktop.
-3. Clique em **Atualizar**.
+1. Clone or extract the repository to `C:\HR_Attrition_People_Analytics\`. If you use another folder, update the `PastaDados` parameter after opening the project.
+2. Open `powerbi/HR_Attrition.pbip` in Power BI Desktop.
+3. Click **Refresh**.
 
-**Reproduzir a análise:**
+**Reproduce the analysis:**
 ```bash
 pip install -r analise/requirements.txt
 python analise/analysis.py dados/WA_Fn-UseC_-HR-Employee-Attrition.csv build
@@ -119,7 +119,7 @@ python analise/build_html.py analise/dashboard_template.html build/dashboard_dat
 python analise/build_simulador.py build analise/dashboard_template.html dashboard/Simulador_Risco_Saida.html
 ```
 
-A metodologia completa, as fórmulas com exemplos, o dicionário de dados e as limitações estão em [`docs/DOCUMENTACAO.md`](docs/DOCUMENTACAO.md).
+The full methodology, worked formula examples, data dictionary and limitations are in [`docs/DOCUMENTACAO.md`](docs/DOCUMENTACAO.md) (Portuguese).
 
 ---
 
@@ -127,18 +127,18 @@ A metodologia completa, as fórmulas com exemplos, o dicionário de dados e as l
 
 Python (pandas, scipy, statsmodels, scikit-learn, lifelines) · Power BI (PBIP, TMDL, DAX, Power Query) · HTML/CSS/JavaScript (Apache ECharts)
 
-## Limitações
+## Limitations
 
-- A base é fictícia e não tem datas. A curva de Kaplan-Meier usa os anos de casa como aproximação, e o horizonte de 12 meses é uma premissa.
-- Associação não é causalidade. Os odds ratios mostram onde olhar, não o efeito garantido de uma ação.
-- A métrica de hora extra foi retirada de propósito da análise.
+- The dataset is fictional and has no dates. Kaplan-Meier uses tenure as a proxy, and the 12-month horizon is an assumption.
+- Association is not causation. Odds ratios show where to look, not the guaranteed effect of an intervention.
+- The overtime variable was deliberately excluded from the analysis.
 
-## Autor
+## Author
 
-**Romulo Azzi**: BI, dados e marketing · MBA em Gestão de Pessoas e Liderança (PUC)
-<!-- adicione aqui o link do seu LinkedIn -->
+**Romulo Azzi**: BI, data and marketing · MBA in People Management and Leadership (PUC)
+<!-- add your LinkedIn link here -->
 
-## Fontes
+## Sources
 
-- IBM HR Analytics Employee Attrition & Performance (dataset fictício para estudo, disponível no Kaggle)
-- SHRM, *2025 Recruiting Benchmarking Report* (prazo de contratação e custo por contratação)
+- IBM HR Analytics Employee Attrition & Performance (fictional dataset for study, available on Kaggle)
+- SHRM, *2025 Recruiting Benchmarking Report* (time to fill and cost per hire)
